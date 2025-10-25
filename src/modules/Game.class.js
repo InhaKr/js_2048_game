@@ -64,10 +64,9 @@ class Game {
 
       for (let j = 0; j < row.length; j++) {
         if (
-          j < row.length - 1 && //чтоб j не была последней
+          j < row.length - 1 && // чтоб j не была последней
           row[j] === row[j + 1] &&
-
-          //клетка с индексом j ещё не была объединена в этом ходе.
+          // клетка с индексом j ещё не была объединена в этом ходе.
           !merged.has(j) &&
           !merged.has(j + 1)
         ) {
@@ -167,7 +166,7 @@ class Game {
         this.state[3][j],
       ].filter((val) => val !== 0);
       const newCol = [];
-      const merged = new Set(); //исключаем дублирование
+      const merged = new Set(); // исключаем дублирование
 
       for (let i = 0; i < col.length; i++) {
         if (
@@ -276,8 +275,7 @@ class Game {
     }
 
     if (emptyCells.length > 0) {
-
-      // const x = emptyCells[Math.floor(Math.random() * emptyCells.length)];//получаем случайный {/,/} с координатами
+      // const x = emptyCells[Math.floor(Math.random() * emptyCells.length)];
       // console.log(x);
 
       // const z = x.i;
@@ -287,6 +285,7 @@ class Game {
 
       const { i, j } =
         emptyCells[Math.floor(Math.random() * emptyCells.length)];
+
       this.state[i][j] = Math.random() < 0.9 ? 2 : 4;
     }
   }
@@ -332,4 +331,4 @@ class Game {
   }
 }
 
-// module.exports = Game;
+module.exports = Game;

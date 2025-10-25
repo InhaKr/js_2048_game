@@ -64,10 +64,9 @@ class Game {
 
       for (let j = 0; j < row.length; j++) {
         if (
-          j < row.length - 1 && //чтоб j не была последней
+          j < row.length - 1 && // чтоб j не была последней
           row[j] === row[j + 1] &&
-
-          //клетка с индексом j ещё не была объединена в этом ходе.
+          // клетка с индексом j ещё не была объединена в этом ходе.
           !merged.has(j) &&
           !merged.has(j + 1)
         ) {
@@ -95,7 +94,7 @@ class Game {
 
     if (moved) {
       this.addRandomTile();
-      // this.updateStatus();
+      this.updateStatus();
     }
   }
 
@@ -167,7 +166,7 @@ class Game {
         this.state[3][j],
       ].filter((val) => val !== 0);
       const newCol = [];
-      const merged = new Set(); //исключаем дублирование
+      const merged = new Set(); // исключаем дублирование
 
       for (let i = 0; i < col.length; i++) {
         if (
@@ -276,8 +275,7 @@ class Game {
     }
 
     if (emptyCells.length > 0) {
-
-      // const x = emptyCells[Math.floor(Math.random() * emptyCells.length)];//получаем случайный {/,/} с координатами
+      // const x = emptyCells[Math.floor(Math.random() * emptyCells.length)];
       // console.log(x);
 
       // const z = x.i;
@@ -287,6 +285,7 @@ class Game {
 
       const { i, j } =
         emptyCells[Math.floor(Math.random() * emptyCells.length)];
+
       this.state[i][j] = Math.random() < 0.9 ? 2 : 4;
     }
   }
@@ -335,9 +334,9 @@ class Game {
 // const Game = require('../modules/Game.class');
 const game = new Game();
 
-const cells = document.querySelectorAll('.field-cell'); //клеточки моего поля
-const scoreDisplay = document.querySelector('.game-score'); //табло с очками
-const startButton = document.querySelector('.button'); //start
+const cells = document.querySelectorAll('.field-cell'); // клеточки моего поля
+const scoreDisplay = document.querySelector('.game-score'); // табло с очками
+const startButton = document.querySelector('.button'); // start
 const messageStart = document.querySelector('.message-start');
 const messageWin = document.querySelector('.message-win');
 const messageLose = document.querySelector('.message-lose');
@@ -346,9 +345,9 @@ function updateBoard() {
   const state = game.getState();
 
   cells.forEach((cell, index) => {
-    const row = Math.floor(index / 4); //строки
+    const row = Math.floor(index / 4); // строки
 
-    const col = index % 4; //столбцы
+    const col = index % 4; // столбцы
     const value = state[row][col];
 
     cell.textContent = value === 0 ? '' : value;
@@ -362,23 +361,23 @@ function updateBoard() {
 }
 
 function updateMessages() {
-  const status = game.getStatus();
+  const statusFunc = game.getStatus();
 
   messageStart.classList.add('hidden');
   messageWin.classList.add('hidden');
   messageLose.classList.add('hidden');
 
-  if (status === 'idle') {
+  if (statusFunc === 'idle') {
     messageStart.classList.remove('hidden');
     startButton.textContent = 'Start';
     startButton.classList.remove('restart');
     startButton.classList.add('start');
-  } else if (status === 'win') {
+  } else if (statusFunc === 'win') {
     messageWin.classList.remove('hidden');
     startButton.textContent = 'Restart';
     startButton.classList.remove('start');
     startButton.classList.add('restart');
-  } else if (status === 'lose') {
+  } else if (statusFunc === 'lose') {
     messageLose.classList.remove('hidden');
     startButton.textContent = 'Restart';
     startButton.classList.remove('start');
@@ -400,12 +399,12 @@ startButton.addEventListener('click', () => {
   updateMessages();
 });
 
-document.addEventListener('keydown', (event) => {
+document.addEventListener('keydown', (e) => {
   if (game.getStatus() !== 'playing') {
     return;
   }
 
-  switch (event.key) {
+  switch (e.key) {
     case 'ArrowLeft':
       game.moveLeft();
       break;
